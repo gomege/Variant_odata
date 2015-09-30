@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0"
+    xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+    xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="ZUI5_TEST_TVC_SRV" xml:lang="de" sap:schema-version="1"
+            xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="ZUI5_TEST_TFEATURES" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ATNAM"/>
+                </Key>
+                <Property Name="ATNAM" Type="Edm.String" Nullable="false" MaxLength="30" sap:label="Merkmal" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ATBEZ" Type="Edm.String" Nullable="false" MaxLength="30" sap:label="Bezeichnung" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="TO_VALUES" Relationship="ZUI5_TEST_TVC_SRV.VALUES_FOR_FEATURE" FromRole="FromRole_VALUES_FOR_FEATURE" ToRole="ToRole_VALUES_FOR_FEATURE"/>
+            </EntityType>
+            <EntityType Name="ZUI5_TEST_TVALUES" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ATNAM"/>
+                    <PropertyRef Name="ATWRT"/>
+                </Key>
+                <Property Name="ATNAM" Type="Edm.String" Nullable="false" MaxLength="30" sap:label="Merkmal" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ATWRT" Type="Edm.String" Nullable="false" MaxLength="30" sap:label="Merkmalwert" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ATWTB" Type="Edm.String" Nullable="false" MaxLength="30" sap:label="Bezeichnung" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ATFLV" Type="Edm.Double" Nullable="false" sap:label="Wert von" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ATFLB" Type="Edm.Double" Nullable="false" sap:label="Wert bis" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="TO_TEXT" Relationship="ZUI5_TEST_TVC_SRV.TEXT_FOR_VALUE" FromRole="FromRole_TEXT_FOR_VALUE" ToRole="ToRole_TEXT_FOR_VALUE"/>
+            </EntityType>
+            <EntityType Name="ZUI5_TEST_TVALUETEXTE" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ATNAM"/>
+                    <PropertyRef Name="ATWRT"/>
+                </Key>
+                <Property Name="ATNAM" Type="Edm.String" Nullable="false" MaxLength="30" sap:label="Merkmal" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ATWRT" Type="Edm.String" Nullable="false" MaxLength="30" sap:label="Merkmalwert" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ATFLV" Type="Edm.Double" Nullable="false" sap:label="Wert von" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ATFLB" Type="Edm.Double" Nullable="false" sap:label="Wert bis" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="TDLINENO" Type="Edm.String" Nullable="false" MaxLength="4" sap:label="int. Zähler" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="TDLINE" Type="Edm.String" Nullable="false" MaxLength="132" sap:label="Textzeile" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <Association Name="VALUES_FOR_FEATURE" sap:content-version="1">
+                <End Type="ZUI5_TEST_TVC_SRV.ZUI5_TEST_TFEATURES" Multiplicity="1" Role="FromRole_VALUES_FOR_FEATURE"/>
+                <End Type="ZUI5_TEST_TVC_SRV.ZUI5_TEST_TVALUES" Multiplicity="*" Role="ToRole_VALUES_FOR_FEATURE"/>
+            </Association>
+            <Association Name="TEXT_FOR_VALUE" sap:content-version="1">
+                <End Type="ZUI5_TEST_TVC_SRV.ZUI5_TEST_TVALUES" Multiplicity="1" Role="FromRole_TEXT_FOR_VALUE"/>
+                <End Type="ZUI5_TEST_TVC_SRV.ZUI5_TEST_TVALUETEXTE" Multiplicity="*" Role="ToRole_TEXT_FOR_VALUE"/>
+            </Association>
+            <EntityContainer Name="ZUI5_TEST_TVC_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="ZUI5_TEST_TVALUES_SET" EntityType="ZUI5_TEST_TVC_SRV.ZUI5_TEST_TVALUES" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="ZUI5_TEST_TVALUETEXTE_SET" EntityType="ZUI5_TEST_TVC_SRV.ZUI5_TEST_TVALUETEXTE" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="ZUI5_TEST_TFEATURES_SET" EntityType="ZUI5_TEST_TVC_SRV.ZUI5_TEST_TFEATURES" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <AssociationSet Name="VALUES_FOR_FEATURE_AssocSet" Association="ZUI5_TEST_TVC_SRV.VALUES_FOR_FEATURE" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZUI5_TEST_TFEATURES_SET" Role="FromRole_VALUES_FOR_FEATURE"/>
+                    <End EntitySet="ZUI5_TEST_TVALUES_SET" Role="ToRole_VALUES_FOR_FEATURE"/>
+                </AssociationSet>
+                <AssociationSet Name="TEXT_FOR_VALUE_AssocSet" Association="ZUI5_TEST_TVC_SRV.TEXT_FOR_VALUE" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZUI5_TEST_TVALUES_SET" Role="FromRole_TEXT_FOR_VALUE"/>
+                    <End EntitySet="ZUI5_TEST_TVALUETEXTE_SET" Role="ToRole_TEXT_FOR_VALUE"/>
+                </AssociationSet>
+            </EntityContainer>
+            <atom:link rel="self" href="http://localhost:9090/webidedispatcher/destinations/H64/sap/opu/odata/sap/ZUI5_TEST_TVC_SRV/$metadata"
+                xmlns:atom="http://www.w3.org/2005/Atom"/>
+                <atom:link rel="latest-version" href="http://localhost:9090/webidedispatcher/destinations/H64/sap/opu/odata/sap/ZUI5_TEST_TVC_SRV/$metadata"
+                    xmlns:atom="http://www.w3.org/2005/Atom"/>
+                </Schema>
+            </edmx:DataServices>
+        </edmx:Edmx>
