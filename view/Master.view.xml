@@ -11,7 +11,7 @@
         <content>
             <List id="list" select="onSelect" mode="{device&gt;/listMode}" noDataText="{i18n&gt;masterListNoDataText}" growing="true" growingScrollToLoad="true" items="{/ZUI5_TEST_TVALUES_SET?$filter=ATNAM eq 'FIORI_PRG'}"> 
                 <items id="masterList">
-                    <ObjectListItem id="mainListItem" press="onSelect" type="{device&gt;/listItemType}" counter="0" title="{ATWTB}" number="{ATWRT}" numberUnit="{ATFLV}" markFavorite="false" markFlagged="false" showMarkers="false">
+                    <ObjectListItem id="mainListItem" press="onSelect" type="{device&gt;/listItemType}" counter="0" title="{ATWTB}" number="{ATWRT}" markFavorite="false" markFlagged="false" showMarkers="false">
                         <core:ExtensionPoint name="extListItemInfo"/>
                     </ObjectListItem>
                 </items>

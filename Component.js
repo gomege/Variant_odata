@@ -102,7 +102,7 @@ sap.ui.core.UIComponent.extend("Variantconf.Component", {
 			listMode : sap.ui.Device.system.phone ? "None" : "SingleSelectMaster",
 			listItemType : sap.ui.Device.system.phone ? "Active" : "Inactive"
 		});
-		oDeviceModel.setDefaultBindingMode("OneWay");
+		oDeviceModel.setDefaultBindingMode("TwoWay");
 		this.setModel(oDeviceModel, "device");
 
 		this.getRouter().initialize();
