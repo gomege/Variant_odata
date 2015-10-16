@@ -1,7 +1,7 @@
 <mvc:View xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" controllerName="Variantconf.view.Detail">
     <Page id="detailPage" navButtonPress="onNavBack" title="{i18n&gt;detailTitle}" showNavButton="{device&gt;/isPhone}">
         <content>
-            <ObjectHeader id="detailHeader" title="{ATWTB}" number="{ATFLV}" numberUnit="{ATWRT}" introActive="false" titleActive="false" iconActive="false">
+            <ObjectHeader id="detailHeader" title="{ATWTB}" number="" numberUnit="" introActive="false" titleActive="false" iconActive="false">
                 <attributes id="detailAttributes">                
                     <ObjectAttribute id="attribute" text="{i18n&gt;detailText}" active="false">
                     </ObjectAttribute>
@@ -11,15 +11,20 @@
                     </ObjectStatus>
                 </firstStatus>
             </ObjectHeader>
-            <IconTabBar id="idIconTabBar" expanded="{device&gt;/isNoPhone}">
+            <IconTabBar expanded="{device&gt;/isNoPhone}" select="onSelectChanged" id="idIconTabBar">
     			<items id="detailsItems">
-                    <IconTabFilter id="iconTabFilter1" key="selfInfo" icon="sap-icon://hint" text="Programm">
+                   <IconTabFilter id="iconTabFilter1" key="selfInfo" icon="sap-icon://hint" text="Programm">
                         <content>
-							<f:SimpleForm id="iconTabFilter1form" minWidth="1024" editable="false" layout="ResponsiveGridLayout" labelSpanL="3" labelSpanM="3" emptySpanL="4" emptySpanM="4" columnsL="1">
+                        <Input xmlns="sap.m"
+									id="PG"
+									value="{ATWRT}"
+									width="10%">
+								</Input>
+							<f:SimpleForm id="Prog" minWidth="1024" editable="false" layout="ResponsiveGridLayout" labelSpanL="3" labelSpanM="3" emptySpanL="4" emptySpanM="4" columnsL="1" items="{/ZUI5_TEST_TVALUES_SET}">
 								<f:content>
 									<Label id="label1" text="Programm Name">
 									</Label>
-									<Text id="text1" text="{ATFLV}" maxLines="0">
+									<Text id="text1" text="{ATWTB}" maxLines="0">
 									</Text>
 									<Label id="label2" text="Beschreibung">
 									</Label>
@@ -33,38 +38,41 @@
 								</f:content>
 							</f:SimpleForm>
                             </content>
-                    </IconTabFilter>
-                    <IconTabFilter id="iconTabFilter2" text="Type" icon="sap-icon://group">
+                    </IconTabFilter> 
+                    <IconTabFilter id="iconTabFilter2" key="2" text="Type" icon="sap-icon://group">
 						      <content>
-						      <ComboBox xmlns="sap.m" id="Typ" items="{/ZUI5_TEST_TVALUES_SET?$filter=ATNAM eq 'FIORI_TYP'}" selectionChange="onChange">
+						      <ComboBox xmlns="sap.m" id="Typ" items="{/ZUI5_TEST_TVALUES_SET}" selectionChange="onChange_T">
 						      	<items>
 				                <core:Item key="{ATWRT}" text="{ATWTB}"/>
 				                </items>
 						      </ComboBox>
                         </content>
                     </IconTabFilter>
-                    <IconTabFilter text="Farbe" icon="sap-icon://palette" id="__filter0">
+                    <IconTabFilter text="Farbe" key="3" icon="sap-icon://palette" id="iconTabFilter3">
                         <content>
-                            <ComboBox xmlns="sap.m" id="Farbe" items="{/ZUI5_TEST_TVALUES_SET?$filter=ATNAM eq 'FIORI_FARBE'}" selectionChange="onChange">
+                            <ComboBox xmlns="sap.m" id="Farbe" items="{/ZUI5_TEST_TVALUES_SET}" selectionChange="onChange_F">
 						      	<items>
 				                <core:Item key="{ATWRT}" text="{ATWTB}"/>
 				                </items>
 						      </ComboBox>
                         </content>
                     </IconTabFilter>
-                    <IconTabFilter text="Bezügstyp" icon="sap-icon://puzzle" id="__filter1">
+                    <IconTabFilter text="Bezügstyp" key="4" icon="sap-icon://puzzle" id="iconTabFilter4">
                             <content>
-                            <ComboBox xmlns="sap.m" id="Stoff" items="{/ZUI5_TEST_TVALUES_SET?$filter=ATNAM eq 'FIORI_BEZUGSSTOFF'}" selectionChange="onChange">
+                            <ComboBox xmlns="sap.m" id="Stoff" items="{/ZUI5_TEST_TVALUES_SET}" selectionChange="onChange_B">
 						      	<items>
 				                <core:Item key="{ATWRT}" text="{ATWTB}"/>
 				                </items>
 						      </ComboBox>
                         </content>
                     </IconTabFilter>
-                    <IconTabFilter text="Breite" icon="sap-icon://family-care" id="__filter2">
+                    <IconTabFilter text="Kissen" key="5" icon="sap-icon://family-care" id="iconTabFilter5">
                         <content>
-                            <Label text="Bitte wählen Sie die Breite aus" width="100%" id="__label5"/>
-                            <Slider id="__slider0" value="30" width="40%" class="sapUiSmallMarginBottom" />
+                            <ComboBox xmlns="sap.m" id="Kissen" items="{/ZUI5_TEST_TVALUES_SET}" selectionChange="onChange_K">
+						      	<items>
+				                <core:Item key="{ATWRT}" text="{ATWTB}"/>
+				                </items>
+						      </ComboBox>
                         </content>
                     </IconTabFilter>
     				<core:ExtensionPoint name="extIconTabFilter"/>
