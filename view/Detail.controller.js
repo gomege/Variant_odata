@@ -1,3 +1,4 @@
+var Glob_P;
 var Glob_T;
 var Glob_F;
 var Glob_K;
@@ -154,12 +155,11 @@ sap.ui.core.mvc.Controller.extend("Variantconf.view.Detail", {
 	},
 
 	onSelectChanged: function(oEvent) {
-
-		var oCrit = "SKRIT_FIORI_PRG=" + "BA" + "___SKRIT_FIORI_TYP=" + Glob_T + "___SKRIT_FIORI_FARBE=" + Glob_F;
-
+        Glob_P = this.getView().byId("text2").getText();
+		var oCrit = "SKRIT_FIORI_PRG=" + Glob_P + "___SKRIT_FIORI_TYP=" + Glob_T + "___SKRIT_FIORI_FARBE=" + Glob_F;
 		var key = oEvent.getParameters().key;
 		if (key === '2') {
-			var oFilter_T = new sap.ui.model.Filter("ATNAM", "EQ", "FIORI_TYP");
+		    var oFilter_T = new sap.ui.model.Filter("ATNAM", "EQ", "FIORI_TYP");
 			var oBinding_T = this.byId("Typ").getBinding("items");
 			oBinding_T.filter([oFilter_T]);
 		} else if (key === '3') {

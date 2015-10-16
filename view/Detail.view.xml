@@ -15,11 +15,6 @@
     			<items id="detailsItems">
                    <IconTabFilter id="iconTabFilter1" key="selfInfo" icon="sap-icon://hint" text="Programm">
                         <content>
-                        <Input xmlns="sap.m"
-									id="PG"
-									value="{ATWRT}"
-									width="10%">
-								</Input>
 							<f:SimpleForm id="Prog" minWidth="1024" editable="false" layout="ResponsiveGridLayout" labelSpanL="3" labelSpanM="3" emptySpanL="4" emptySpanM="4" columnsL="1" items="{/ZUI5_TEST_TVALUES_SET}">
 								<f:content>
 									<Label id="label1" text="Programm Name">
@@ -70,7 +65,7 @@
                         <content>
                             <ComboBox xmlns="sap.m" id="Kissen" items="{/ZUI5_TEST_TVALUES_SET}" selectionChange="onChange_K">
 						      	<items>
-				                <core:Item key="{ATWRT}" text="{ATWTB}"/>
+				                <core:Item key="{ATWRT}" text="{ATWRT}"/>
 				                </items>
 						      </ComboBox>
                         </content>
