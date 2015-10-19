@@ -2,6 +2,7 @@ var Glob_P;
 var Glob_T;
 var Glob_F;
 var Glob_K;
+var Glob_B;
 
 sap.ui.core.mvc.Controller.extend("Variantconf.view.Detail", {
 
@@ -140,11 +141,7 @@ sap.ui.core.mvc.Controller.extend("Variantconf.view.Detail", {
 	getRouter: function() {
 		return sap.ui.core.UIComponent.getRouterFor(this);
 	},
-
-	onChange_T: function(oEvent) {
-		var MyVariable = oEvent.getParameter("selectedItem").getKey();
-		Glob_T = MyVariable;
-	},
+	
 	onChange_F: function(oEvent) {
 		var MyVariable = oEvent.getParameter("selectedItem").getKey();
 		Glob_F = MyVariable;
@@ -153,27 +150,58 @@ sap.ui.core.mvc.Controller.extend("Variantconf.view.Detail", {
 		var MyVariable = oEvent.getParameter("selectedItem").getKey();
 		Glob_K = MyVariable;
 	},
-
+	radiobuttonselect_T:function(oEvent){
+    var oSelectedIndex = oEvent.getParameter("selectedIndex");  
+    var oRadioButtonSrc = oEvent.getSource().getAggregation("buttons");  
+    var oSelectedRadioText = oRadioButtonSrc[oSelectedIndex].getText();
+    Glob_T = oSelectedRadioText;
+	},
+	radiobuttonselect_B :function(oEvent){
+    var oSelectedIndex = oEvent.getParameter("selectedIndex");  
+    var oRadioButtonSrc = oEvent.getSource().getAggregation("buttons");  
+    var oSelectedRadioText = oRadioButtonSrc[oSelectedIndex].getText();
+    Glob_B = oSelectedRadioText;
+	},
 	onSelectChanged: function(oEvent) {
-        Glob_P = this.getView().byId("text2").getText();
-		var oCrit = "SKRIT_FIORI_PRG=" + Glob_P + "___SKRIT_FIORI_TYP=" + Glob_T + "___SKRIT_FIORI_FARBE=" + Glob_F;
+        Glob_P = this.getView().byId("text1").getText();
+		var oCrit = "SKRIT_FIORI_PRG=" + Glob_P; 
+		oCrit = oCrit + "___SKRIT_FIORI_TYP=" + Glob_T;
+		oCrit = oCrit + "___SKRIT_FIORI_FARBE=" + Glob_F;
+		oCrit = oCrit + "___SKRIT_FIORI_BEZUGSSTOFF=" + Glob_B;
+		oCrit = oCrit + "___SKRIT_FIORI_KISSEN_ANZ=" + Glob_K;
+		
+		var gl_imgpath;
+        gl_imgpath = "/sap/opu/odata/sap/ZUI5_TEST_TVC_SRV/ZUI5_TEST_TVALUES_SET(ATNAM='FIORI_JPEG',ATWRT='";
+        gl_imgpath = gl_imgpath + Glob_P + "_";
+        gl_imgpath = gl_imgpath + Glob_T + "_";
+        gl_imgpath = gl_imgpath + Glob_F + "_";
+        gl_imgpath = gl_imgpath + Glob_B;
+        gl_imgpath = gl_imgpath + "')/$value";
+
+		var oImage = this.byId("odata_img01");
+        oImage.setSrc(gl_imgpath);
+        
 		var key = oEvent.getParameters().key;
 		if (key === '2') {
+		    Glob_P = this.getView().byId("text1").getText();
 		    var oFilter_T = new sap.ui.model.Filter("ATNAM", "EQ", "FIORI_TYP");
-			var oBinding_T = this.byId("Typ").getBinding("items");
+			var oBinding_T = this.byId("Typ").getBinding("buttons");
 			oBinding_T.filter([oFilter_T]);
 		} else if (key === '3') {
 			var oFilter_F = new sap.ui.model.Filter("ATNAM", "EQ", "FIORI_FARBE");
 			var oBinding_F = this.byId("Farbe").getBinding("items");
 			oBinding_F.filter([oFilter_F]);
 		} else if (key === '4') {
-			var oFilter1 = {};
-			oFilter1 = new sap.ui.model.Filter("ATNAM", sap.ui.model.FilterOperator.EQ, "FIORI_BEZUGSSTOFF");
-			var oFilter2 = {};
-			oFilter2 = new sap.ui.model.Filter("ATWRT", sap.ui.model.FilterOperator.EQ, oCrit);
-			var allFilter = new sap.ui.model.Filter([oFilter1, oFilter2], true);
-			var oBinding2 = this.byId("Stoff").getBinding("items");
-			oBinding2.filter([allFilter]);
+			var oFilter_B = new sap.ui.model.Filter("ATNAM", "EQ", "FIORI_BEZUGSSTOFF");
+			var oBinding_B = this.byId("Stoff").getBinding("buttons");
+			oBinding_B.filter([oFilter_B]);  
+//			var oFilter1 = {};
+//			oFilter1 = new sap.ui.model.Filter("ATNAM", sap.ui.model.FilterOperator.EQ, "FIORI_BEZUGSSTOFF");
+//			var oFilter2 = {};
+//			oFilter2 = new sap.ui.model.Filter("ATWRT", sap.ui.model.FilterOperator.EQ, oCrit);
+//			var allFilter = new sap.ui.model.Filter([oFilter1, oFilter2], true);
+//			var oBinding2 = this.byId("Stoff").getBinding("items");
+//			oBinding2.filter([allFilter]);
 		} else if (key === '5') {
 			var oFilter_K = new sap.ui.model.Filter("ATNAM", "EQ", "FIORI_KISSEN_ANZ");
 			var oBinding_K = this.byId("Kissen").getBinding("items");

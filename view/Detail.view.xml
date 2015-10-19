@@ -15,52 +15,113 @@
     			<items id="detailsItems">
                    <IconTabFilter id="iconTabFilter1" key="selfInfo" icon="sap-icon://hint" text="Programm">
                         <content>
-							<f:SimpleForm id="Prog" minWidth="1024" editable="false" layout="ResponsiveGridLayout" labelSpanL="3" labelSpanM="3" emptySpanL="4" emptySpanM="4" columnsL="1" items="{/ZUI5_TEST_TVALUES_SET}">
+							<f:SimpleForm id="Prog" minWidth="1024" editable="false" layout="ResponsiveGridLayout" title="Technische Merkmale" labelSpanL="3" labelSpanM="3" emptySpanL="4" emptySpanM="4" columnsL="1" items="{/ZUI5_TEST_TVALUETEXTE_SET}">
 								<f:content>
-									<Label id="label1" text="Programm Name">
+									<Label id="label1" text="Programm ID">
 									</Label>
-									<Text id="text1" text="{ATWTB}" maxLines="0">
+									<Text id="text1" text="{ATWRT}" maxLines="0">
 									</Text>
 									<Label id="label2" text="Beschreibung">
 									</Label>
-									<Text id="text2" text="{ATWRT}" maxLines="0">
+									<Text id="text2" text="{TDLINE}" maxLines="0">
 									</Text>
-									<Label id="label3" text="Lieferant">
+									<Label id="label3" text="Beschreibung">
 									</Label>
-									<Text id="text3" text="{ATWRT}" maxLines="0">
-									</Text>
+                                    <Text id="text3" text="{ATWTB}" maxLines="0">
+                                    </Text>
+                                    <Label id="label4" text="Lieferant">
+                                    </Label>
+                                    <Text id="text4" text="Supplier_hardKodiert" maxLines="0">
+                                    </Text>
+                                    <Label id="label5" text="Bewertung">
+                                    </Label>
+                                    <RatingIndicator id="Rating1" maxValue="5" class="sapUiSmallMarginBottom" value="4" tooltip="Rating Tooltip" enabled="true" iconSize="0.8rem" verticalAdjustment="-15" verticalAlignContent="true"/>
 									<core:ExtensionPoint name="extIconTabFilterForm1"/>
 								</f:content>
 							</f:SimpleForm>
                             </content>
                     </IconTabFilter> 
-                    <IconTabFilter id="iconTabFilter2" key="2" text="Type" icon="sap-icon://group">
-						      <content>
-						      <ComboBox xmlns="sap.m" id="Typ" items="{/ZUI5_TEST_TVALUES_SET}" selectionChange="onChange_T">
-						      	<items>
-				                <core:Item key="{ATWRT}" text="{ATWTB}"/>
-				                </items>
-						      </ComboBox>
+                    <IconTabFilter id="iconTabFilter2" key="2" text="Typ" icon="sap-icon://group">
+					     <content>
+			             <Text text="Wählen Sie eine Option aus"/>     
+                            <l:Grid
+                        		class="sapUiSmallMarginTop"
+                        		hSpacing="2"
+                        		defaultSpan="L8 M8 S12">
+                        		<l:content>
+                            		<Image width="140px" height="140px" id="odata_img01">
+                        				<layoutData>
+                        					<l:GridData
+                        						span="L4 M4 S10"
+                        						linebreakL="true"
+                        						linebreakM="true"
+                        						linebreakS="true"/>
+                        				</layoutData>
+                        			</Image>
+                        				<VBox>
+                        				    <RadioButtonGroup xmlns="sap.m"
+                                         		id="Typ"
+                                         		buttons="{/ZUI5_TEST_TVALUES_SET}"
+                                         		width="500px"
+                                         		columns="1"
+                                         		selectedIndex="0"
+                                         		enabled="true"
+                                         		class="sapUiMediumMarginBottom"
+                                         		select="radiobuttonselect_T">
+                                              <buttons>
+                                                    <RadioButton id="RBG1" text="{ATWRT}"/>              
+                                               </buttons>
+                                        	</RadioButtonGroup>
+                            			</VBox>
+                        		</l:content>
+                    	   </l:Grid> 
                         </content>
                     </IconTabFilter>
                     <IconTabFilter text="Farbe" key="3" icon="sap-icon://palette" id="iconTabFilter3">
                         <content>
-                            <ComboBox xmlns="sap.m" id="Farbe" items="{/ZUI5_TEST_TVALUES_SET}" selectionChange="onChange_F">
-						      	<items>
-				                <core:Item key="{ATWRT}" text="{ATWTB}"/>
-				                </items>
-						      </ComboBox>
+                            <l:Grid
+                        		class="sapUiSmallMarginTop"
+                        		hSpacing="2"
+                        		defaultSpan="L8 M8 S12">
+                        		<l:content>
+                            		<Image src="/sap/opu/odata/sap/ZUI5_TEST_TVC_SRV/ZUI5_TEST_TVALUES_SET(ATNAM='FIORI_JPEG',ATWRT='BA_SE_GR_KL')/$value" width="140px" height="140px" id="odata_img2">
+                        				<layoutData>
+                        					<l:GridData
+                        						span="L4 M4 S10"
+                        						linebreakL="true"
+                        						linebreakM="true"
+                        						linebreakS="true"/>
+                        				</layoutData>
+                        			</Image>
+                        				<VBox>
+                        				    <ComboBox xmlns="sap.m" id="Farbe" items="{/ZUI5_TEST_TVALUES_SET}" selectionChange="onChange_F">
+            						      	<items>
+            				                <core:Item key="{ATWRT}" text="{ATWTB}"/>
+            				                </items>
+            						      </ComboBox>
+                            			</VBox>
+                        		</l:content>
+                    	   </l:Grid>
                         </content>
                     </IconTabFilter>
                     <IconTabFilter text="Bezügstyp" key="4" icon="sap-icon://puzzle" id="iconTabFilter4">
                             <content>
-                            <ComboBox xmlns="sap.m" id="Stoff" items="{/ZUI5_TEST_TVALUES_SET}" selectionChange="onChange_B">
-						      	<items>
-				                <core:Item key="{ATWRT}" text="{ATWTB}"/>
-				                </items>
-						      </ComboBox>
-                        </content>
-                    </IconTabFilter>
+                            <Label text="Wählen Sie bitte die gewünschte Bezugart" width="100%"/>
+                                 	<RadioButtonGroup xmlns="sap.m"
+                                 		id="Stoff"
+                                 		buttons="{/ZUI5_TEST_TVALUES_SET}"
+                                 		width="500px"
+                                 		columns="1"
+                                 		selectedIndex="0"
+                                 		enabled="true"
+                                 		class="sapUiMediumMarginBottom"
+                                 		select="radiobuttonselect_B">
+                                              <buttons>
+                                                    <RadioButton id="RBG2" text="{ATWRT}"/>              
+                                               </buttons>
+                                 	</RadioButtonGroup> 
+                    			</content>
+                     </IconTabFilter>
                     <IconTabFilter text="Kissen" key="5" icon="sap-icon://family-care" id="iconTabFilter5">
                         <content>
                             <ComboBox xmlns="sap.m" id="Kissen" items="{/ZUI5_TEST_TVALUES_SET}" selectionChange="onChange_K">
@@ -68,8 +129,8 @@
 				                <core:Item key="{ATWRT}" text="{ATWRT}"/>
 				                </items>
 						      </ComboBox>
-                        </content>
-                    </IconTabFilter>
+                        </content> 
+                    </IconTabFilter> 
     				<core:ExtensionPoint name="extIconTabFilter"/>
                 </items>
             </IconTabBar>
