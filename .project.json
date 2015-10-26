@@ -46,6 +46,6 @@
   },
   "deploy": {
     "destination": "H64",
-    "name": "Z_variantConf"
+    "name": "Z_VARIANTCONF"
   }
 }

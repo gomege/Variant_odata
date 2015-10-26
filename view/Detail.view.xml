@@ -7,43 +7,41 @@
                     </ObjectAttribute>
                 </attributes>
                 <firstStatus id="detailStatus">
-                    <ObjectStatus id="status" text="{ATWTB}">
+                    <ObjectStatus id="status" text="{ATWRT}" visible="false">
                     </ObjectStatus>
                 </firstStatus>
             </ObjectHeader>
             <IconTabBar expanded="{device&gt;/isNoPhone}" select="onSelectChanged" id="idIconTabBar">
     			<items id="detailsItems">
-                   <IconTabFilter id="iconTabFilter1" key="selfInfo" icon="sap-icon://hint" text="Programm">
+                   <IconTabFilter id="iconTabFilter1" key="selfInfo" icon="sap-icon://hint" text="Program">
+                       <Text text="Description"/>
                         <content>
-							<f:SimpleForm id="Prog" minWidth="1024" editable="false" layout="ResponsiveGridLayout" title="Technische Merkmale" labelSpanL="3" labelSpanM="3" emptySpanL="4" emptySpanM="4" columnsL="1" items="{/ZUI5_TEST_TVALUETEXTE_SET}">
-								<f:content>
-									<Label id="label1" text="Programm ID">
-									</Label>
-									<Text id="text1" text="{ATWRT}" maxLines="0">
-									</Text>
-									<Label id="label2" text="Beschreibung">
-									</Label>
-									<Text id="text2" text="{TDLINE}" maxLines="0">
-									</Text>
-									<Label id="label3" text="Beschreibung">
-									</Label>
-                                    <Text id="text3" text="{ATWTB}" maxLines="0">
-                                    </Text>
-                                    <Label id="label4" text="Lieferant">
-                                    </Label>
-                                    <Text id="text4" text="Supplier_hardKodiert" maxLines="0">
-                                    </Text>
-                                    <Label id="label5" text="Bewertung">
-                                    </Label>
-                                    <RatingIndicator id="Rating1" maxValue="5" class="sapUiSmallMarginBottom" value="4" tooltip="Rating Tooltip" enabled="true" iconSize="0.8rem" verticalAdjustment="-15" verticalAlignContent="true"/>
-									<core:ExtensionPoint name="extIconTabFilterForm1"/>
-								</f:content>
-							</f:SimpleForm>
+                			<Table id="MTEXT" class="navTableControlLayout" 
+                				items="{/ZUI5_TEST_TVALUETEXTE_SET}"			 
+                				growing="true" growingScrollToLoad="true">
+                    				<headerToolbar id="navigationTable_headerToolbar">
+                    					<Toolbar id="navigationTable_headerToolbar_toolbar"> 
+                    					    <Label id="navigationTable_headerToolbar_toolbar_title" text="" class="sapMH4FontSize" />					
+                    					</Toolbar>
+                    				</headerToolbar>
+                    				<columns id="navigationTable_columns">
+                    					<Column id="navigationTable_columns_col1" width="33%" minScreenWidth="Tablet" demandPopin="true"
+                    						hAlign="Left" vAlign="Top">
+                    						<header id="navigationTable_columns_col1_header">						
+                    						</header>
+                    					</Column>
+                    				</columns>
+                    				<ColumnListItem id="navigationListItem">
+                    					<cells id="navigationListItem_cells"> 
+                    						<Text id="navigationListItem_cells_cell_1" text="{TDLINE}" />
+                    					</cells>
+                    				</ColumnListItem>
+                			</Table>
                             </content>
                     </IconTabFilter> 
-                    <IconTabFilter id="iconTabFilter2" key="2" text="Typ" icon="sap-icon://group">
+                    <IconTabFilter id="iconTabFilter2" key="2" text="Type" icon="sap-icon://group">
 					     <content>
-			             <Text text="Wählen Sie eine Option aus"/>     
+			             <Text text="Please select a type"/>     
                             <l:Grid
                         		class="sapUiSmallMarginTop"
                         		hSpacing="2"
@@ -59,32 +57,25 @@
                         				</layoutData>
                         			</Image>
                         				<VBox>
-                        				    <RadioButtonGroup xmlns="sap.m"
-                                         		id="Typ"
-                                         		buttons="{/ZUI5_TEST_TVALUES_SET}"
-                                         		width="500px"
-                                         		columns="1"
-                                         		selectedIndex="0"
-                                         		enabled="true"
-                                         		class="sapUiMediumMarginBottom"
-                                         		select="radiobuttonselect_T">
-                                              <buttons>
-                                                    <RadioButton id="RBG1" text="{ATWRT}"/>              
-                                               </buttons>
-                                        	</RadioButtonGroup>
+                        				   <ComboBox xmlns="sap.m" id="Typ" items="{/ZUI5_TEST_TVALUES_SET}" selectionChange="onChange_T">
+            						      	<items>
+            				                <core:Item key="{ATWRT}" text="{ATWTB}"/>
+            				                </items>
+            						      </ComboBox>
                             			</VBox>
                         		</l:content>
                     	   </l:Grid> 
                         </content>
                     </IconTabFilter>
-                    <IconTabFilter text="Farbe" key="3" icon="sap-icon://palette" id="iconTabFilter3">
+                    <IconTabFilter text="Color" key="3" icon="sap-icon://palette" id="iconTabFilter3">
+                        <Text text="Please select the color"/> 
                         <content>
                             <l:Grid
                         		class="sapUiSmallMarginTop"
                         		hSpacing="2"
                         		defaultSpan="L8 M8 S12">
                         		<l:content>
-                            		<Image src="/sap/opu/odata/sap/ZUI5_TEST_TVC_SRV/ZUI5_TEST_TVALUES_SET(ATNAM='FIORI_JPEG',ATWRT='BA_SE_GR_KL')/$value" width="140px" height="140px" id="odata_img2">
+                            		<Image width="140px" height="140px" id="odata_img02">
                         				<layoutData>
                         					<l:GridData
                         						span="L4 M4 S10"
@@ -104,32 +95,61 @@
                     	   </l:Grid>
                         </content>
                     </IconTabFilter>
-                    <IconTabFilter text="Bezügstyp" key="4" icon="sap-icon://puzzle" id="iconTabFilter4">
+                    <IconTabFilter text="Material" key="4" icon="sap-icon://puzzle" id="iconTabFilter4">
                             <content>
-                            <Label text="Wählen Sie bitte die gewünschte Bezugart" width="100%"/>
-                                 	<RadioButtonGroup xmlns="sap.m"
-                                 		id="Stoff"
-                                 		buttons="{/ZUI5_TEST_TVALUES_SET}"
-                                 		width="500px"
-                                 		columns="1"
-                                 		selectedIndex="0"
-                                 		enabled="true"
-                                 		class="sapUiMediumMarginBottom"
-                                 		select="radiobuttonselect_B">
-                                              <buttons>
-                                                    <RadioButton id="RBG2" text="{ATWRT}"/>              
-                                               </buttons>
-                                 	</RadioButtonGroup> 
-                    			</content>
+                                <Text text="Please select the kind of material"/> 
+                            <l:Grid
+                        		class="sapUiSmallMarginTop"
+                        		hSpacing="2"
+                        		defaultSpan="L8 M8 S12">
+                        		<l:content>
+                            		<Image width="140px" height="140px" id="odata_img03">
+                        				<layoutData>
+                        					<l:GridData
+                        						span="L4 M4 S10"
+                        						linebreakL="true"
+                        						linebreakM="true"
+                        						linebreakS="true"/>
+                        				</layoutData>
+                        			</Image>
+                        				<VBox>
+                        				<ComboBox xmlns="sap.m" id="Stoff" items="{/ZUI5_TEST_TVALUES_SET}" selectionChange="onChange_S">
+            						      	<items>
+            				                <core:Item key="{ATWRT}" text="{ATWTB}"/>
+            				                </items>
+            						      </ComboBox>
+                            			</VBox>
+                        		</l:content>
+                    	   </l:Grid> 
+                    		</content>
                      </IconTabFilter>
-                    <IconTabFilter text="Kissen" key="5" icon="sap-icon://family-care" id="iconTabFilter5">
+                    <IconTabFilter text="No. pillows" key="5" icon="sap-icon://family-care" id="iconTabFilter5">
+                         <Text text="Please select the number of pillows"/> 
                         <content>
-                            <ComboBox xmlns="sap.m" id="Kissen" items="{/ZUI5_TEST_TVALUES_SET}" selectionChange="onChange_K">
-						      	<items>
-				                <core:Item key="{ATWRT}" text="{ATWRT}"/>
-				                </items>
-						      </ComboBox>
-                        </content> 
+                            <l:Grid
+                        		class="sapUiSmallMarginTop"
+                        		hSpacing="2"
+                        		defaultSpan="L8 M8 S12">
+                        		<l:content>
+                            		<Image width="140px" height="140px" id="odata_img04">
+                        				<layoutData>
+                        					<l:GridData
+                        						span="L4 M4 S10"
+                        						linebreakL="true"
+                        						linebreakM="true"
+                        						linebreakS="true"/>
+                        				</layoutData>
+                        			</Image>
+                        				<VBox>
+                        				    <ComboBox xmlns="sap.m" id="Kissen" items="{/ZUI5_TEST_TVALUES_SET}" selectionChange="onChange_K">
+            						      	<items>
+            				                <core:Item key="{ATWRT}" text="{ATWRT}"/>
+            				                </items>
+            				                </ComboBox>
+                            			</VBox>
+                        		</l:content>
+                    	   </l:Grid>
+                        </content>  
                     </IconTabFilter> 
     				<core:ExtensionPoint name="extIconTabFilter"/>
                 </items>

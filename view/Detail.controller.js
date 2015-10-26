@@ -1,8 +1,10 @@
-var Glob_P;
-var Glob_T;
-var Glob_F;
-var Glob_K;
-var Glob_B;
+var Glob_P="BA";
+var Glob_T="";
+var Glob_F="";
+var Glob_K="";
+var Glob_B="";
+var gl_imgpath;
+var oImage;
 
 sap.ui.core.mvc.Controller.extend("Variantconf.view.Detail", {
 
@@ -21,7 +23,7 @@ sap.ui.core.mvc.Controller.extend("Variantconf.view.Detail", {
 
 		this.getRouter().attachRouteMatched(this.onRouteMatched, this);
 	},
-
+	
 	onMasterLoaded: function(sChannel, sEvent) {
 		this.getView().setBusy(false);
 		this.oInitialLoadFinishedDeferred.resolve();
@@ -53,18 +55,25 @@ sap.ui.core.mvc.Controller.extend("Variantconf.view.Detail", {
 					oItem.bindElement(oItem.getKey());
 				}
 			});
-
 			// Specify the tab being focused
-			var sTabKey = oParameters.arguments.tab;
-			this.getEventBus().publish("Detail", "TabChanged", {
-				sTabKey: sTabKey
-			});
+//			var sTabKey = oParameters.arguments.tab;
+//			this.getEventBus().publish("Detail", "TabChanged", {
+//				sTabKey: sTabKey
+//			});
 
-			if (oIconTabBar.getSelectedKey() !== sTabKey) {
-				oIconTabBar.setSelectedKey(sTabKey);
+			if (oIconTabBar.getSelectedKey() !== "selfInfo") {
+				oIconTabBar.setSelectedKey("selfInfo");
 			}
+				var oTyp = this.byId("Typ");
+				oTyp.setSelectedKey("");
+				var oFarbe = this.byId("Farbe");
+				oFarbe.setSelectedKey("");
+				var oStoff = this.byId("Stoff");
+				oStoff.setSelectedKey("");
+				var oKissen = this.byId("Kissen");
+				oKissen.setSelectedKey("");
+				Glob_T=""; Glob_F=""; Glob_B=""; Glob_K="";
 		}, this));
-
 	},
 
 	bindView: function(sEntityPath) {
@@ -88,7 +97,12 @@ sap.ui.core.mvc.Controller.extend("Variantconf.view.Detail", {
 		} else {
 			this.fireDetailChanged(sEntityPath);
 		}
-
+        Glob_P = this.getView().byId("status").getText();
+        var oFilter1T = new sap.ui.model.Filter("ATNAM", "EQ", "FIORI_PRG");
+        var oFilter2T = new sap.ui.model.Filter("ATWRT", "EQ", Glob_P);
+        var allFilterT = new sap.ui.model.Filter([oFilter1T, oFilter2T], true);
+        var oBindingT = this.byId("MTEXT").getBinding("items");
+        oBindingT.filter([allFilterT]); 
 	},
 
 	showEmptyView: function() {
@@ -142,70 +156,100 @@ sap.ui.core.mvc.Controller.extend("Variantconf.view.Detail", {
 		return sap.ui.core.UIComponent.getRouterFor(this);
 	},
 	
+    onChange_T: function(oEvent) {
+    var MyVariable = oEvent.getParameter("selectedItem").getKey();
+    Glob_T = MyVariable;
+    gl_imgpath = "/sap/opu/odata/sap/ZUI5_TEST_TVC_SRV/ZUI5_TEST_TVALUES_SET(ATNAM='FIORI_JPEG',ATWRT='";
+    gl_imgpath = gl_imgpath + Glob_P + "_";
+    gl_imgpath = gl_imgpath + Glob_T + "_";
+    gl_imgpath = gl_imgpath + Glob_F + "_";
+    gl_imgpath = gl_imgpath + Glob_B;
+    gl_imgpath = gl_imgpath + "')/$value";
+    oImage = this.byId("odata_img01");
+    oImage.setSrc(gl_imgpath);
+    },	
+
 	onChange_F: function(oEvent) {
 		var MyVariable = oEvent.getParameter("selectedItem").getKey();
 		Glob_F = MyVariable;
-	},
-	onChange_K: function(oEvent) {
-		var MyVariable = oEvent.getParameter("selectedItem").getKey();
-		Glob_K = MyVariable;
-	},
-	radiobuttonselect_T:function(oEvent){
-    var oSelectedIndex = oEvent.getParameter("selectedIndex");  
-    var oRadioButtonSrc = oEvent.getSource().getAggregation("buttons");  
-    var oSelectedRadioText = oRadioButtonSrc[oSelectedIndex].getText();
-    Glob_T = oSelectedRadioText;
-	},
-	radiobuttonselect_B :function(oEvent){
-    var oSelectedIndex = oEvent.getParameter("selectedIndex");  
-    var oRadioButtonSrc = oEvent.getSource().getAggregation("buttons");  
-    var oSelectedRadioText = oRadioButtonSrc[oSelectedIndex].getText();
-    Glob_B = oSelectedRadioText;
-	},
-	onSelectChanged: function(oEvent) {
-        Glob_P = this.getView().byId("text1").getText();
-		var oCrit = "SKRIT_FIORI_PRG=" + Glob_P; 
-		oCrit = oCrit + "___SKRIT_FIORI_TYP=" + Glob_T;
-		oCrit = oCrit + "___SKRIT_FIORI_FARBE=" + Glob_F;
-		oCrit = oCrit + "___SKRIT_FIORI_BEZUGSSTOFF=" + Glob_B;
-		oCrit = oCrit + "___SKRIT_FIORI_KISSEN_ANZ=" + Glob_K;
-		
-		var gl_imgpath;
         gl_imgpath = "/sap/opu/odata/sap/ZUI5_TEST_TVC_SRV/ZUI5_TEST_TVALUES_SET(ATNAM='FIORI_JPEG',ATWRT='";
         gl_imgpath = gl_imgpath + Glob_P + "_";
         gl_imgpath = gl_imgpath + Glob_T + "_";
         gl_imgpath = gl_imgpath + Glob_F + "_";
         gl_imgpath = gl_imgpath + Glob_B;
         gl_imgpath = gl_imgpath + "')/$value";
-
-		var oImage = this.byId("odata_img01");
+        oImage = this.byId("odata_img02");
         oImage.setSrc(gl_imgpath);
+	},
+
+	onChange_S: function(oEvent) {
+		var MyVariable = oEvent.getParameter("selectedItem").getKey();
+		Glob_B = MyVariable;
+		        gl_imgpath = "/sap/opu/odata/sap/ZUI5_TEST_TVC_SRV/ZUI5_TEST_TVALUES_SET(ATNAM='FIORI_JPEG',ATWRT='";
+        gl_imgpath = gl_imgpath + Glob_P + "_";
+        gl_imgpath = gl_imgpath + Glob_T + "_";
+        gl_imgpath = gl_imgpath + Glob_F + "_";
+        gl_imgpath = gl_imgpath + Glob_B;
+        gl_imgpath = gl_imgpath + "')/$value";
+        oImage = this.byId("odata_img03");
+        oImage.setSrc(gl_imgpath);
+	},
+	
+	onChange_K: function(oEvent) {
+		var MyVariable = oEvent.getParameter("selectedItem").getKey();
+		Glob_K = MyVariable;
+	},
+
+
+
+
+	onSelectChanged: function(oEvent) {
+        Glob_P = this.getView().byId("status").getText();
+		var oCrit = "SKRIT_FIORI_PRG=" + Glob_P; 
+		oCrit = oCrit + "___SKRIT_FIORI_TYP=" + Glob_T;
+		oCrit = oCrit + "___SKRIT_FIORI_FARBE=" + Glob_F;
+		oCrit = oCrit + "___SKRIT_FIORI_BEZUGSSTOFF=" + Glob_B;
+		oCrit = oCrit + "___SKRIT_FIORI_KISSEN_ANZ=" + Glob_K;
+
+        gl_imgpath = "/sap/opu/odata/sap/ZUI5_TEST_TVC_SRV/ZUI5_TEST_TVALUES_SET(ATNAM='FIORI_JPEG',ATWRT='";
+        gl_imgpath = gl_imgpath + Glob_P + "_";
+        gl_imgpath = gl_imgpath + Glob_T + "_";
+        gl_imgpath = gl_imgpath + Glob_F + "_";
+        gl_imgpath = gl_imgpath + Glob_B;
+        gl_imgpath = gl_imgpath + "')/$value";
         
 		var key = oEvent.getParameters().key;
 		if (key === '2') {
-		    Glob_P = this.getView().byId("text1").getText();
+		    Glob_P = this.getView().byId("status").getText();
 		    var oFilter_T = new sap.ui.model.Filter("ATNAM", "EQ", "FIORI_TYP");
-			var oBinding_T = this.byId("Typ").getBinding("buttons");
+			var oBinding_T = this.byId("Typ").getBinding("items");
 			oBinding_T.filter([oFilter_T]);
+            oImage = this.byId("odata_img01");
+            oImage.setSrc(gl_imgpath);
 		} else if (key === '3') {
 			var oFilter_F = new sap.ui.model.Filter("ATNAM", "EQ", "FIORI_FARBE");
 			var oBinding_F = this.byId("Farbe").getBinding("items");
 			oBinding_F.filter([oFilter_F]);
+            oImage = this.byId("odata_img02");
+            oImage.setSrc(gl_imgpath);
+            
 		} else if (key === '4') {
-			var oFilter_B = new sap.ui.model.Filter("ATNAM", "EQ", "FIORI_BEZUGSSTOFF");
-			var oBinding_B = this.byId("Stoff").getBinding("buttons");
-			oBinding_B.filter([oFilter_B]);  
-//			var oFilter1 = {};
-//			oFilter1 = new sap.ui.model.Filter("ATNAM", sap.ui.model.FilterOperator.EQ, "FIORI_BEZUGSSTOFF");
-//			var oFilter2 = {};
-//			oFilter2 = new sap.ui.model.Filter("ATWRT", sap.ui.model.FilterOperator.EQ, oCrit);
-//			var allFilter = new sap.ui.model.Filter([oFilter1, oFilter2], true);
-//			var oBinding2 = this.byId("Stoff").getBinding("items");
-//			oBinding2.filter([allFilter]);
+			var oFilter1 = {};
+			oFilter1 = new sap.ui.model.Filter("ATNAM", sap.ui.model.FilterOperator.EQ, "FIORI_BEZUGSSTOFF");
+			var oFilter2 = {};
+			oFilter2 = new sap.ui.model.Filter("ATWRT", sap.ui.model.FilterOperator.EQ, oCrit);
+			var allFilter = new sap.ui.model.Filter([oFilter1, oFilter2], true);
+			var oBinding2 = this.byId("Stoff").getBinding("items");
+			oBinding2.filter([allFilter]);
+			oImage = this.byId("odata_img03");
+			oImage.setSrc(gl_imgpath);
+			
 		} else if (key === '5') {
 			var oFilter_K = new sap.ui.model.Filter("ATNAM", "EQ", "FIORI_KISSEN_ANZ");
 			var oBinding_K = this.byId("Kissen").getBinding("items");
 			oBinding_K.filter([oFilter_K]);
+            oImage = this.byId("odata_img04");
+            oImage.setSrc(gl_imgpath);
 		}
 	},
 
