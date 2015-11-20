@@ -14,7 +14,8 @@ sap.ui.core.UIComponent.extend("Variantconf.Component", {
 		rootView : "Variantconf.view.App",
 
 		config : {
-			resourceBundle : "i18n/messageBundle.properties",
+			resourceBundle_en : "i18n/messageBundle_en.properties",
+			resourceBundle_de : "i18n/messageBundle_de.properties",
 			serviceConfig : {
 				name: "ZUI5_TEST_TVC_SRV",
 				serviceUrl: "/sap/opu/odata/sap/ZUI5_TEST_TVC_SRV/"
@@ -71,11 +72,20 @@ sap.ui.core.UIComponent.extend("Variantconf.Component", {
 		// (relative paths will fail if running in the Fiori Launchpad)
 		var oRootPath = jQuery.sap.getModulePath("Variantconf");
 
-		// Set i18n model
-		var i18nModel = new sap.ui.model.resource.ResourceModel({
-			bundleUrl : [oRootPath, mConfig.resourceBundle].join("/")
-		});
-		this.setModel(i18nModel, "i18n");
+		// Set i18n model according to language
+		var oLang = jQuery.sap.getUriParameters().get("sap-ui-language");
+		var i18nModel;
+		switch (oLang) { // according to language proceeds
+					case "en":  i18nModel = new sap.ui.model.resource.ResourceModel({
+			                    bundleUrl : [oRootPath, mConfig.resourceBundle_en].join("/")
+		                        }); this.setModel(i18nModel, "i18n");
+						break;
+                    case "de": i18nModel = new sap.ui.model.resource.ResourceModel({
+			                    bundleUrl : [oRootPath, mConfig.resourceBundle_de].join("/")
+		                        }); this.setModel(i18nModel, "i18n"); 
+						break;
+					default: alert("no language?");
+				}
 
 		var sServiceUrl = mConfig.serviceConfig.serviceUrl;
 

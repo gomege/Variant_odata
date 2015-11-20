@@ -28,6 +28,18 @@
     },
     {
       "filePath": "/Variant_odata/index.html",
+      "previewMode": 1,
+      "dataMode": 1,
+      "workspace": "withoutWorkspace",
+      "urlParameters": null,
+      "_metadata": {
+        "runnerId": "qunitrunner",
+        "id": 7137616,
+        "displayName": "New Unit Test"
+      }
+    },
+    {
+      "filePath": "/Variant_odata/index.html",
       "previewMode": 0,
       "dataMode": 1,
       "workspace": "withoutWorkspace",

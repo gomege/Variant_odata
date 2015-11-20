@@ -69,10 +69,13 @@ sap.ui.core.mvc.Controller.extend("Variantconf.view.Detail", {
 				var oFarbe = this.byId("Farbe");
 				oFarbe.setSelectedKey("");
 				var oStoff = this.byId("Stoff");
-				oStoff.setSelectedKey("");
+				oStoff.setSelectedKey(" ");
 				var oKissen = this.byId("Kissen");
 				oKissen.setSelectedKey("");
 				Glob_T=""; Glob_F=""; Glob_B=""; Glob_K="";
+				var Krit = this._Path();
+				oImage = this.byId("odata_img00"); // image of the first tab is placed
+                oImage.setSrc(gl_imgpath);
 		}, this));
 	},
 
@@ -98,11 +101,23 @@ sap.ui.core.mvc.Controller.extend("Variantconf.view.Detail", {
 			this.fireDetailChanged(sEntityPath);
 		}
         Glob_P = this.getView().byId("status").getText();
-        var oFilter1T = new sap.ui.model.Filter("ATNAM", "EQ", "FIORI_PRG");
-        var oFilter2T = new sap.ui.model.Filter("ATWRT", "EQ", Glob_P);
-        var allFilterT = new sap.ui.model.Filter([oFilter1T, oFilter2T], true);
-        var oBindingT = this.byId("MTEXT").getBinding("items");
-        oBindingT.filter([allFilterT]); 
+        var oTyp = this.byId("Typ");
+        oTyp.setSelectedKey("");
+        var oFarbe = this.byId("Farbe");
+        oFarbe.setSelectedKey("");
+        var oStoff = this.byId("Stoff");
+        oStoff.setSelectedKey(" ");
+        var oKissen = this.byId("Kissen");
+        oKissen.setSelectedKey("");
+        Glob_T=""; Glob_F=""; Glob_B=""; Glob_K="";
+        var Krit = this._Path();
+        this._filter ("FIORI_PRG", "MTEXT", Glob_P);
+        this._filter ("FIORI_TYP", "Typ", Krit);
+        this._filter ("FIORI_FARBE", "Farbe", Krit);
+        this._filter ("FIORI_BEZUGSSTOFF", "Stoff", Krit);
+        this._filter ("FIORI_KISSEN_ANZ", "Kissen", Krit);
+        this._filter ("FIORI_PREIS", "Preis", Krit);
+  
 	},
 
 	showEmptyView: function() {
@@ -156,103 +171,134 @@ sap.ui.core.mvc.Controller.extend("Variantconf.view.Detail", {
 		return sap.ui.core.UIComponent.getRouterFor(this);
 	},
 	
-    onChange_T: function(oEvent) {
-    var MyVariable = oEvent.getParameter("selectedItem").getKey();
-    Glob_T = MyVariable;
+    onChange: function(oEvent) {
+    var Krit; //declares the variable for criteria 
+    var Temp = oEvent.getParameter("selectedItem").getId(); //obtains the Id of the controller
+        if (Temp.match(/Typ/)) {Glob_T = oEvent.getParameter("selectedItem").getKey();  // Based on ID, the global variable is updated
+                                Krit = this._Path(); // Based on new value of global variable, the criteria is updated
+                                this._filter ("FIORI_FARBE", "Farbe", Krit); // The list of the next step is populated
+                                oImage = this.byId("odata_img01"); // image is placed
+                                oImage.setSrc(gl_imgpath);
+            
+        }    else if (Temp.match(/Farbe/)) { Glob_F = oEvent.getParameter("selectedItem").getKey();
+                                            Krit = this._Path();
+                                            this._filter ("FIORI_BEZUGSSTOFF", "Stoff", Krit);
+                                            oImage = this.byId("odata_img02");
+                                            oImage.setSrc(gl_imgpath);
+                                            
+        }          else if (Temp.match(/Stoff/)) { Glob_B = oEvent.getParameter("selectedItem").getKey();
+                                                    Krit = this._Path();
+                                                    this._filter ("FIORI_KISSEN_ANZ", "Kissen", Krit);
+                                                    oImage = this.byId("odata_img03");
+                                                    oImage.setSrc(gl_imgpath);
+ 
+        }               else if (Temp.match(/Kissen/)) { Glob_K = oEvent.getParameter("selectedItem").getKey();
+                                                        Krit = this._Path();
+                                                        oImage = this.byId("odata_img04");
+                                                        oImage.setSrc(gl_imgpath);
+
+        }
+                            else {alert("not found!");}
+                            this._filter ("FIORI_PREIS", "Preis", Krit); // The pricing procedure is carried out
+
+    },	
+
+    _Path: function () { // this function updates the global declared variables for path (image and selector)
+    var oCrit = "SKRIT_FIORI_PRG=" + Glob_P;
+    oCrit = oCrit + "___SKRIT_FIORI_TYP=" + Glob_T;
+    oCrit = oCrit + "___SKRIT_FIORI_FARBE=" + Glob_F;
+    oCrit = oCrit + "___SKRIT_FIORI_BEZUGSSTOFF=" + Glob_B;
+    oCrit = oCrit + "___SKRIT_FIORI_KISSEN_ANZ=" + Glob_K;
+    
     gl_imgpath = "/sap/opu/odata/sap/ZUI5_TEST_TVC_SRV/ZUI5_TEST_TVALUES_SET(ATNAM='FIORI_JPEG',ATWRT='";
     gl_imgpath = gl_imgpath + Glob_P + "_";
     gl_imgpath = gl_imgpath + Glob_T + "_";
     gl_imgpath = gl_imgpath + Glob_F + "_";
     gl_imgpath = gl_imgpath + Glob_B;
     gl_imgpath = gl_imgpath + "')/$value";
-    oImage = this.byId("odata_img01");
-    oImage.setSrc(gl_imgpath);
-    },	
+    
+    return oCrit;
+    },
 
-	onChange_F: function(oEvent) {
-		var MyVariable = oEvent.getParameter("selectedItem").getKey();
-		Glob_F = MyVariable;
-        gl_imgpath = "/sap/opu/odata/sap/ZUI5_TEST_TVC_SRV/ZUI5_TEST_TVALUES_SET(ATNAM='FIORI_JPEG',ATWRT='";
-        gl_imgpath = gl_imgpath + Glob_P + "_";
-        gl_imgpath = gl_imgpath + Glob_T + "_";
-        gl_imgpath = gl_imgpath + Glob_F + "_";
-        gl_imgpath = gl_imgpath + Glob_B;
-        gl_imgpath = gl_imgpath + "')/$value";
-        oImage = this.byId("odata_img02");
-        oImage.setSrc(gl_imgpath);
-	},
+    _filter: function (oName, oID, okrit){ // this function updates the list according to values passed
+    var oFilter = new sap.ui.model.Filter("ATNAM", "EQ", oName);
+    var oFilter2 = new sap.ui.model.Filter("ATWRT", sap.ui.model.FilterOperator.EQ, okrit);
+    var allFilter = new sap.ui.model.Filter([oFilter, oFilter2], true);
+    var oBinding_T = this.byId(oID).getBinding("items");
+    oBinding_T.filter([allFilter]);
+  },
 
-	onChange_S: function(oEvent) {
-		var MyVariable = oEvent.getParameter("selectedItem").getKey();
-		Glob_B = MyVariable;
-		        gl_imgpath = "/sap/opu/odata/sap/ZUI5_TEST_TVC_SRV/ZUI5_TEST_TVALUES_SET(ATNAM='FIORI_JPEG',ATWRT='";
-        gl_imgpath = gl_imgpath + Glob_P + "_";
-        gl_imgpath = gl_imgpath + Glob_T + "_";
-        gl_imgpath = gl_imgpath + Glob_F + "_";
-        gl_imgpath = gl_imgpath + Glob_B;
-        gl_imgpath = gl_imgpath + "')/$value";
-        oImage = this.byId("odata_img03");
-        oImage.setSrc(gl_imgpath);
-	},
-	
-	onChange_K: function(oEvent) {
-		var MyVariable = oEvent.getParameter("selectedItem").getKey();
-		Glob_K = MyVariable;
-	},
+// this function obtains the current values in the list obtained by oData service
+// is usefull for validating the allowed values or automatizing the unique values
+    _retrieve: function(oID){
+    var oItems = this.getView().byId(oID).getItems();
+    var oItemsKey = [];
+    for(var i=0;i<oItems.length;i++){
+    oItemsKey.push(oItems[i].getKey()); 
+                                    }
+    return oItemsKey;
+    },
 
-
-
-
+//With this function, the allowed values are verified. Single values are automatically selected in list
+    _validate: function(oArray, oSelect, oID) {
+        var Krit; //declares the variable for criteria 
+        var oList = this.byId(oID); //instantiates the list to the variable oList
+        if(oArray.length === 1)  {  // this is the case if the odata has delivered only one value
+			    var oKey = $.map(this.byId(oID).getItems(), function (item) { return item.getKey(); } );
+				oList.setSelectedKey(oKey); //assigns the value to the list
+				switch (oID) { // assigns the value of global variable since the user does not make any selection
+					case "Typ": Glob_P = oKey[0]; 
+					            Krit = this._Path();
+					            this._filter ("FIORI_PREIS", "Preis", Krit); // The pricing procedure is carried out
+						break;
+                    case "Farbe": Glob_F = oKey[0];
+                                    Krit = this._Path();
+					                this._filter ("FIORI_PREIS", "Preis", Krit); // The pricing procedure is carried out
+						break;
+					case "Stoff": Glob_B = oKey[0];
+					                Krit = this._Path();
+					                this._filter ("FIORI_PREIS", "Preis", Krit); // The pricing procedure is carried out
+						break;
+                    case "Kissen": Glob_K = oKey[0];
+                                    Krit = this._Path();
+					                this._filter ("FIORI_PREIS", "Preis", Krit); // The pricing procedure is carried out
+						break;
+					default: alert("no global variable?");
+				}
+        } else {
+            for(var i=0;i<oArray.length;i++){
+                if (oArray[i] === oSelect)  {oList.setSelectedKey(oSelect);  break; }
+                oList.setSelectedKey("");
+                }
+            }
+    },
+    
 	onSelectChanged: function(oEvent) {
-        Glob_P = this.getView().byId("status").getText();
-		var oCrit = "SKRIT_FIORI_PRG=" + Glob_P; 
-		oCrit = oCrit + "___SKRIT_FIORI_TYP=" + Glob_T;
-		oCrit = oCrit + "___SKRIT_FIORI_FARBE=" + Glob_F;
-		oCrit = oCrit + "___SKRIT_FIORI_BEZUGSSTOFF=" + Glob_B;
-		oCrit = oCrit + "___SKRIT_FIORI_KISSEN_ANZ=" + Glob_K;
 
-        gl_imgpath = "/sap/opu/odata/sap/ZUI5_TEST_TVC_SRV/ZUI5_TEST_TVALUES_SET(ATNAM='FIORI_JPEG',ATWRT='";
-        gl_imgpath = gl_imgpath + Glob_P + "_";
-        gl_imgpath = gl_imgpath + Glob_T + "_";
-        gl_imgpath = gl_imgpath + Glob_F + "_";
-        gl_imgpath = gl_imgpath + Glob_B;
-        gl_imgpath = gl_imgpath + "')/$value";
-        
 		var key = oEvent.getParameters().key;
 		if (key === '2') {
-		    Glob_P = this.getView().byId("status").getText();
-		    var oFilter_T = new sap.ui.model.Filter("ATNAM", "EQ", "FIORI_TYP");
-			var oBinding_T = this.byId("Typ").getBinding("items");
-			oBinding_T.filter([oFilter_T]);
             oImage = this.byId("odata_img01");
             oImage.setSrc(gl_imgpath);
+
 		} else if (key === '3') {
-			var oFilter_F = new sap.ui.model.Filter("ATNAM", "EQ", "FIORI_FARBE");
-			var oBinding_F = this.byId("Farbe").getBinding("items");
-			oBinding_F.filter([oFilter_F]);
+		var oList = this._retrieve("Farbe");
+		this._validate(oList, Glob_F, "Farbe");
             oImage = this.byId("odata_img02");
             oImage.setSrc(gl_imgpath);
-            
+
 		} else if (key === '4') {
-			var oFilter1 = {};
-			oFilter1 = new sap.ui.model.Filter("ATNAM", sap.ui.model.FilterOperator.EQ, "FIORI_BEZUGSSTOFF");
-			var oFilter2 = {};
-			oFilter2 = new sap.ui.model.Filter("ATWRT", sap.ui.model.FilterOperator.EQ, oCrit);
-			var allFilter = new sap.ui.model.Filter([oFilter1, oFilter2], true);
-			var oBinding2 = this.byId("Stoff").getBinding("items");
-			oBinding2.filter([allFilter]);
+		    oList = this._retrieve("Stoff");
+		    this._validate(oList, Glob_B, "Stoff");
 			oImage = this.byId("odata_img03");
 			oImage.setSrc(gl_imgpath);
-			
+
 		} else if (key === '5') {
-			var oFilter_K = new sap.ui.model.Filter("ATNAM", "EQ", "FIORI_KISSEN_ANZ");
-			var oBinding_K = this.byId("Kissen").getBinding("items");
-			oBinding_K.filter([oFilter_K]);
             oImage = this.byId("odata_img04");
             oImage.setSrc(gl_imgpath);
+
 		}
 	},
-
+	
 	onExit: function(oEvent) {
 		var oEventBus = this.getEventBus();
 		oEventBus.unsubscribe("Master", "InitialLoadFinished", this.onMasterLoaded, this);

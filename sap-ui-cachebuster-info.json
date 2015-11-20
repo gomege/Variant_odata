@@ -1,1 +1,22 @@
-{}
+{
+  "Component.js": "1448033718683",
+  "css/style.css": "1446048621327",
+  "i18n/messageBundle.properties": "1448033718921",
+  "i18n/messageBundle_de.properties": "1448033718848",
+  "i18n/messageBundle_en.properties": "1448033718696",
+  "index.html": "1446048621430",
+  "localIndex.html": "1446048621369",
+  "mock_preview_sapui5.html": "1448033718726",
+  "model/metadata.xml": "1446048621390",
+  "model/ZUI5_TEST_TVALUES_SET.json": "1446048621350",
+  "MyRouter.js": "1446048621477",
+  "README.md": "1446048621412",
+  "view/App.controller.js": "1446048621418",
+  "view/App.view.xml": "1446048621335",
+  "view/Detail.controller.js": "1448033718708",
+  "view/Detail.view.xml": "1448033718816",
+  "view/Master.controller.js": "1446048621341",
+  "view/Master.view.xml": "1446048621400",
+  "view/NotFound.controller.js": "1446048621406",
+  "view/NotFound.view.xml": "1446048621451"
+}

@@ -1,4 +1,4 @@
-<mvc:View xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" controllerName="Variantconf.view.Detail">
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:l="sap.ui.layout" controllerName="Variantconf.view.Detail" xmlns:html="http://www.w3.org/1999/xhtml">
     <Page id="detailPage" navButtonPress="onNavBack" title="{i18n&gt;detailTitle}" showNavButton="{device&gt;/isPhone}">
         <content>
             <ObjectHeader id="detailHeader" title="{ATWTB}" number="" numberUnit="" introActive="false" titleActive="false" iconActive="false">
@@ -11,43 +11,66 @@
                     </ObjectStatus>
                 </firstStatus>
             </ObjectHeader>
-            <IconTabBar expanded="{device&gt;/isNoPhone}" select="onSelectChanged" id="idIconTabBar">
+            <IconTabBar expanded="{device&gt;/isNoPhone}" select="onSelectChanged" id="idIconTabBar" >
     			<items id="detailsItems">
-                   <IconTabFilter id="iconTabFilter1" key="selfInfo" icon="sap-icon://hint" text="Program">
-                       <Text text="Description"/>
+                   <IconTabFilter id="iconTabFilter1" key="selfInfo" icon="sap-icon://hint" text="{i18n&gt;Tabfilter1}">
+                       <Text text="{i18n&gt;Tabfilter1_text}"/>
                         <content>
-                			<Table id="MTEXT" class="navTableControlLayout" 
-                				items="{/ZUI5_TEST_TVALUETEXTE_SET}"			 
-                				growing="true" growingScrollToLoad="true">
-                    				<headerToolbar id="navigationTable_headerToolbar">
-                    					<Toolbar id="navigationTable_headerToolbar_toolbar"> 
-                    					    <Label id="navigationTable_headerToolbar_toolbar_title" text="" class="sapMH4FontSize" />					
-                    					</Toolbar>
-                    				</headerToolbar>
-                    				<columns id="navigationTable_columns">
-                    					<Column id="navigationTable_columns_col1" width="33%" minScreenWidth="Tablet" demandPopin="true"
-                    						hAlign="Left" vAlign="Top">
-                    						<header id="navigationTable_columns_col1_header">						
-                    						</header>
-                    					</Column>
-                    				</columns>
-                    				<ColumnListItem id="navigationListItem">
-                    					<cells id="navigationListItem_cells"> 
-                    						<Text id="navigationListItem_cells_cell_1" text="{TDLINE}" />
-                    					</cells>
-                    				</ColumnListItem>
-                			</Table>
-                            </content>
-                    </IconTabFilter> 
-                    <IconTabFilter id="iconTabFilter2" key="2" text="Type" icon="sap-icon://group">
-					     <content>
-			             <Text text="Please select a type"/>     
                             <l:Grid
                         		class="sapUiSmallMarginTop"
                         		hSpacing="2"
                         		defaultSpan="L8 M8 S12">
                         		<l:content>
-                            		<Image width="140px" height="140px" id="odata_img01">
+                            		<Image width="140px" height="140px" id="odata_img00">
+                        				<layoutData>
+                        					<l:GridData
+                        						span="L4 M4 S10"
+                        						linebreakL="true"
+                        						linebreakM="true"
+                        						linebreakS="true"/>
+                        				</layoutData>
+                        			</Image>
+                        			<Table id="MTEXT" class="navTableControlLayout" 
+                				items="{/ZUI5_TEST_TVALUETEXTE_SET}"			 
+                				growing="true" growingScrollToLoad="true">
+                    				<headerToolbar id="navigationTable_headerToolbar2">
+                    					<Toolbar id="navigationTable_headerToolbar_toolbar2"> 
+                    					    <Label id="navigationTable_headerToolbar_toolbar_title2" text="" class="sapMH4FontSize" />					
+                    					</Toolbar>
+                    				</headerToolbar>
+                    				<columns id="navigationTable_columns2">
+                    					<Column id="navigationTable_columns_col2" width="33%" minScreenWidth="Tablet" demandPopin="true"
+                    						hAlign="Left" vAlign="Top">
+                    						<header id="navigationTable_columns_col2_header">						
+                    						</header>
+                    					</Column>
+                    				</columns>
+                    				<ColumnListItem id="navigationListItem2">
+                    					<cells id="navigationListItem_cells2"> 
+                    						<Text id="navigationListItem_cells_cell_2" text="{TDLINE}" />
+                    					</cells>
+                    					  <layoutData>
+                        					<l:GridData
+                        						span="L4 M4 S10"
+                        						linebreakL="true"
+                        						linebreakM="true"
+                        						linebreakS="false"/>
+                        				</layoutData>
+                    				</ColumnListItem>
+                    				</Table>
+                        		</l:content>
+                    	   </l:Grid>
+                        </content>
+                    </IconTabFilter> 
+                    <IconTabFilter id="iconTabFilter2" key="2" text="{i18n&gt;Tabfilter2}" icon="sap-icon://group">
+			             <Text text="{i18n&gt;Tabfilter2_text}"/>
+			             <content>
+                            <l:Grid
+                        		class="sapUiSmallMarginTop"
+                        		hSpacing="2"
+                        		defaultSpan="L8 M8 S12">
+                        		<l:content>
+                            		<Image width="140px" height="140px" id="odata_img01" densityAware="false">
                         				<layoutData>
                         					<l:GridData
                         						span="L4 M4 S10"
@@ -57,7 +80,7 @@
                         				</layoutData>
                         			</Image>
                         				<VBox>
-                        				   <ComboBox xmlns="sap.m" id="Typ" items="{/ZUI5_TEST_TVALUES_SET}" selectionChange="onChange_T">
+                        				   <ComboBox xmlns="sap.m" id="Typ" items="{/ZUI5_TEST_TVALUES_SET}" selectionChange="onChange">
             						      	<items>
             				                <core:Item key="{ATWRT}" text="{ATWTB}"/>
             				                </items>
@@ -67,8 +90,8 @@
                     	   </l:Grid> 
                         </content>
                     </IconTabFilter>
-                    <IconTabFilter text="Color" key="3" icon="sap-icon://palette" id="iconTabFilter3">
-                        <Text text="Please select the color"/> 
+                    <IconTabFilter text="{i18n&gt;Tabfilter3}" key="3" icon="sap-icon://palette" id="iconTabFilter3">
+			             <Text text="{i18n&gt;Tabfilter3_text}"/> 
                         <content>
                             <l:Grid
                         		class="sapUiSmallMarginTop"
@@ -85,20 +108,20 @@
                         				</layoutData>
                         			</Image>
                         				<VBox>
-                        				    <ComboBox xmlns="sap.m" id="Farbe" items="{/ZUI5_TEST_TVALUES_SET}" selectionChange="onChange_F">
+                        				    <ComboBox xmlns="sap.m" id="Farbe" items="{/ZUI5_TEST_TVALUES_SET}" selectionChange="onChange">
             						      	<items>
             				                <core:Item key="{ATWRT}" text="{ATWTB}"/>
             				                </items>
             						      </ComboBox>
                             			</VBox>
                         		</l:content>
-                    	   </l:Grid>
+                    	   </l:Grid> 
                         </content>
                     </IconTabFilter>
-                    <IconTabFilter text="Material" key="4" icon="sap-icon://puzzle" id="iconTabFilter4">
-                            <content>
-                                <Text text="Please select the kind of material"/> 
-                            <l:Grid
+                    <IconTabFilter text="{i18n&gt;Tabfilter4}" key="4" icon="sap-icon://puzzle" id="iconTabFilter4">
+			             <Text text="{i18n&gt;Tabfilter4_text}"/>
+			             <content>
+                        <l:Grid
                         		class="sapUiSmallMarginTop"
                         		hSpacing="2"
                         		defaultSpan="L8 M8 S12">
@@ -113,7 +136,7 @@
                         				</layoutData>
                         			</Image>
                         				<VBox>
-                        				<ComboBox xmlns="sap.m" id="Stoff" items="{/ZUI5_TEST_TVALUES_SET}" selectionChange="onChange_S">
+                        				<ComboBox xmlns="sap.m" id="Stoff" items="{/ZUI5_TEST_TVALUES_SET}" selectionChange="onChange">
             						      	<items>
             				                <core:Item key="{ATWRT}" text="{ATWTB}"/>
             				                </items>
@@ -121,10 +144,10 @@
                             			</VBox>
                         		</l:content>
                     	   </l:Grid> 
-                    		</content>
-                     </IconTabFilter>
-                    <IconTabFilter text="No. pillows" key="5" icon="sap-icon://family-care" id="iconTabFilter5">
-                         <Text text="Please select the number of pillows"/> 
+                        </content>
+                    </IconTabFilter>
+                    <IconTabFilter text="{i18n&gt;Tabfilter5}" key="5" icon="sap-icon://family-care" id="iconTabFilter5">
+			             <Text text="{i18n&gt;Tabfilter5_text}"/> 
                         <content>
                             <l:Grid
                         		class="sapUiSmallMarginTop"
@@ -141,19 +164,39 @@
                         				</layoutData>
                         			</Image>
                         				<VBox>
-                        				    <ComboBox xmlns="sap.m" id="Kissen" items="{/ZUI5_TEST_TVALUES_SET}" selectionChange="onChange_K">
+                        				    <ComboBox xmlns="sap.m" id="Kissen" items="{/ZUI5_TEST_TVALUES_SET}" selectionChange="onChange">
             						      	<items>
             				                <core:Item key="{ATWRT}" text="{ATWRT}"/>
             				                </items>
             				                </ComboBox>
                             			</VBox>
                         		</l:content>
-                    	   </l:Grid>
-                        </content>  
+                    	   </l:Grid> 
+                        </content>
                     </IconTabFilter> 
     				<core:ExtensionPoint name="extIconTabFilter"/>
                 </items>
             </IconTabBar>
+                <Panel>
+                    <FlexBox
+                    height="100px"
+                    alignItems="Start"
+                    justifyContent="End"
+                    width="100%" >
+                        <List
+                        items="{/ZUI5_TEST_TVALUES_SET}"
+                        id="Preis">
+                            <items>
+                                <ObjectListItem id="item_preis"
+                                title="{i18n&gt;title_preis}: {ATWTB}"
+                                intro="{i18n&gt;cat_preis}"
+                                icon="sap-icon://collections-insight"
+                                press="">
+                                </ObjectListItem>
+                            </items>
+                        </List>
+                    </FlexBox>
+                     </Panel>
     		<core:ExtensionPoint name="extDetail"/>
         </content>
         <footer id="detailFooter">
@@ -161,8 +204,24 @@
                 <content>
                     <ToolbarSpacer id="toolbarSpacer">
                     </ToolbarSpacer>
-                    <Button id="actionButton" press="openActionSheet" icon="sap-icon://action">
-                    </Button>
+                    <Text xmlns="sap.m"
+                    	id="LangText_01"
+                    	text="{i18n&gt;Idiom}  ."
+                    	textDirection="Inherit">
+                    </Text>
+                    <html:a href="http://goo.gl/zZV6z4">
+                      <html:img id="flagg_DE" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Flag_of_Germany.svg/200px-Flag_of_Germany.svg.png" width="30px" height="20px" >
+                      </html:img>
+                      </html:a>
+                    <Text xmlns="sap.m"
+                    id="LangText_02"
+                    text="  "
+                    textDirection="Inherit">
+                    </Text>
+                        <html:a href="http://goo.gl/TKndtx">
+                      <html:img id="flagg_EN" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Flag_of_the_United_Kingdom.svg/200px-Flag_of_the_United_Kingdom.svg.png" width="30px" height="20px" >
+                      </html:img>
+                      </html:a>
                 </content>
             </Toolbar>
         </footer>
