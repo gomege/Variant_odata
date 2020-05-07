@@ -1,68 +1,87 @@
-<?xml version="1.0" encoding="utf-8"?>
-<edmx:Edmx Version="1.0"
-    xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
-    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
-    xmlns:sap="http://www.sap.com/Protocols/SAPData">
-    <edmx:DataServices m:DataServiceVersion="2.0">
-        <Schema Namespace="ZUI5_TEST_TVC_SRV" xml:lang="de" sap:schema-version="1"
-            xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
-            <EntityType Name="ZUI5_TEST_TFEATURES" sap:content-version="1">
-                <Key>
-                    <PropertyRef Name="ATNAM"/>
-                </Key>
-                <Property Name="ATNAM" Type="Edm.String" Nullable="false" MaxLength="30" sap:label="Merkmal" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="ATBEZ" Type="Edm.String" Nullable="false" MaxLength="30" sap:label="Bezeichnung" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <NavigationProperty Name="TO_VALUES" Relationship="ZUI5_TEST_TVC_SRV.VALUES_FOR_FEATURE" FromRole="FromRole_VALUES_FOR_FEATURE" ToRole="ToRole_VALUES_FOR_FEATURE"/>
-            </EntityType>
-            <EntityType Name="ZUI5_TEST_TVALUES" sap:content-version="1">
-                <Key>
-                    <PropertyRef Name="ATNAM"/>
-                    <PropertyRef Name="ATWRT"/>
-                </Key>
-                <Property Name="ATNAM" Type="Edm.String" Nullable="false" MaxLength="30" sap:label="Merkmal" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="ATWRT" Type="Edm.String" Nullable="false" MaxLength="30" sap:label="Merkmalwert" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="ATWTB" Type="Edm.String" Nullable="false" MaxLength="30" sap:label="Bezeichnung" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="ATFLV" Type="Edm.Double" Nullable="false" sap:label="Wert von" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="ATFLB" Type="Edm.Double" Nullable="false" sap:label="Wert bis" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <NavigationProperty Name="TO_TEXT" Relationship="ZUI5_TEST_TVC_SRV.TEXT_FOR_VALUE" FromRole="FromRole_TEXT_FOR_VALUE" ToRole="ToRole_TEXT_FOR_VALUE"/>
-            </EntityType>
-            <EntityType Name="ZUI5_TEST_TVALUETEXTE" sap:content-version="1">
-                <Key>
-                    <PropertyRef Name="ATNAM"/>
-                    <PropertyRef Name="ATWRT"/>
-                </Key>
-                <Property Name="ATNAM" Type="Edm.String" Nullable="false" MaxLength="30" sap:label="Merkmal" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="ATWRT" Type="Edm.String" Nullable="false" MaxLength="30" sap:label="Merkmalwert" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="ATFLV" Type="Edm.Double" Nullable="false" sap:label="Wert von" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="ATFLB" Type="Edm.Double" Nullable="false" sap:label="Wert bis" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="TDLINENO" Type="Edm.String" Nullable="false" MaxLength="4" sap:label="int. Zähler" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="TDLINE" Type="Edm.String" Nullable="false" MaxLength="132" sap:label="Textzeile" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-            </EntityType>
-            <Association Name="VALUES_FOR_FEATURE" sap:content-version="1">
-                <End Type="ZUI5_TEST_TVC_SRV.ZUI5_TEST_TFEATURES" Multiplicity="1" Role="FromRole_VALUES_FOR_FEATURE"/>
-                <End Type="ZUI5_TEST_TVC_SRV.ZUI5_TEST_TVALUES" Multiplicity="*" Role="ToRole_VALUES_FOR_FEATURE"/>
-            </Association>
-            <Association Name="TEXT_FOR_VALUE" sap:content-version="1">
-                <End Type="ZUI5_TEST_TVC_SRV.ZUI5_TEST_TVALUES" Multiplicity="1" Role="FromRole_TEXT_FOR_VALUE"/>
-                <End Type="ZUI5_TEST_TVC_SRV.ZUI5_TEST_TVALUETEXTE" Multiplicity="*" Role="ToRole_TEXT_FOR_VALUE"/>
-            </Association>
-            <EntityContainer Name="ZUI5_TEST_TVC_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
-                <EntitySet Name="ZUI5_TEST_TVALUES_SET" EntityType="ZUI5_TEST_TVC_SRV.ZUI5_TEST_TVALUES" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
-                <EntitySet Name="ZUI5_TEST_TVALUETEXTE_SET" EntityType="ZUI5_TEST_TVC_SRV.ZUI5_TEST_TVALUETEXTE" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
-                <EntitySet Name="ZUI5_TEST_TFEATURES_SET" EntityType="ZUI5_TEST_TVC_SRV.ZUI5_TEST_TFEATURES" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
-                <AssociationSet Name="VALUES_FOR_FEATURE_AssocSet" Association="ZUI5_TEST_TVC_SRV.VALUES_FOR_FEATURE" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
-                    <End EntitySet="ZUI5_TEST_TFEATURES_SET" Role="FromRole_VALUES_FOR_FEATURE"/>
-                    <End EntitySet="ZUI5_TEST_TVALUES_SET" Role="ToRole_VALUES_FOR_FEATURE"/>
-                </AssociationSet>
-                <AssociationSet Name="TEXT_FOR_VALUE_AssocSet" Association="ZUI5_TEST_TVC_SRV.TEXT_FOR_VALUE" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
-                    <End EntitySet="ZUI5_TEST_TVALUES_SET" Role="FromRole_TEXT_FOR_VALUE"/>
-                    <End EntitySet="ZUI5_TEST_TVALUETEXTE_SET" Role="ToRole_TEXT_FOR_VALUE"/>
-                </AssociationSet>
-            </EntityContainer>
-            <atom:link rel="self" href="http://localhost:9090/webidedispatcher/destinations/H64/sap/opu/odata/sap/ZUI5_TEST_TVC_SRV/$metadata"
-                xmlns:atom="http://www.w3.org/2005/Atom"/>
-                <atom:link rel="latest-version" href="http://localhost:9090/webidedispatcher/destinations/H64/sap/opu/odata/sap/ZUI5_TEST_TVC_SRV/$metadata"
-                    xmlns:atom="http://www.w3.org/2005/Atom"/>
-                </Schema>
-            </edmx:DataServices>
-        </edmx:Edmx>
+<?xml version="1.0" encoding="UTF-8"?>
+<md:EntityDescriptor xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata" ID="https___s4symdev.authentication.eu20.hana.ondemand.com" entityID="https://s4symdev.authentication.eu20.hana.ondemand.com">
+    <ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+        <ds:SignedInfo>
+            <ds:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" />
+            <ds:SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256" />
+            <ds:Reference URI="#https___s4symdev.authentication.eu20.hana.ondemand.com">
+                <ds:Transforms>
+                    <ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+                    <ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" />
+                </ds:Transforms>
+                <ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+                <ds:DigestValue>8foJiuJAa54XhPPclFiX8XHfN94MSPjfwggsZF7gh3s=</ds:DigestValue>
+            </ds:Reference>
+        </ds:SignedInfo>
+        <ds:SignatureValue>C2JWSIY6qDwPkdop1jtiT74XiRLjkY53XMi4QqNL8JrsxLbTMmcL7q07c2SiFgNe2s4c/hxpI6RGyHgPB0VsmhBN3HxwomTF1IRJxfUMITw8t+Qg9bBeNq2Rl8i980CtA2UgB8Xb79BHpDkVu+PgBicyA+Tgckh62+1iOUu5rMj8B1XkBsoJttt5nVanxYkU9h8YdTPWarHtiKIb0DGmSshijezucM8WSrqG+EjhXbRawL66GNZLfTPjiX514SDE/VSfhS2BlFvGEMcXIqCJhgq56RqcFHSkGxyMpw/MgQbbp+qS2EE7xu/m1+O3TAIQgliUae+DjhLJyNqOFY5Qmg==</ds:SignatureValue>
+        <ds:KeyInfo>
+            <ds:X509Data>
+                <ds:X509Certificate>MIIDFDCCAfygAwIBAgIGElXjqKNAMA0GCSqGSIb3DQEBCwUAMEExPzA9BgNVBAMMNmh0dHBzOi8v
+czRzeW1kZXYuYXV0aGVudGljYXRpb24uZXUyMC5oYW5hLm9uZGVtYW5kLmNvbTAgFw0xNjAxMDEw
+MDAwMDBaGA8yMDUwMDEwMTAwMDAwMFowQTE/MD0GA1UEAww2aHR0cHM6Ly9zNHN5bWRldi5hdXRo
+ZW50aWNhdGlvbi5ldTIwLmhhbmEub25kZW1hbmQuY29tMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8A
+MIIBCgKCAQEAhzOzkFhXEfWhOyf7YNBDioaRaRrRyMy29MB4zIHtkUuZwiGR1d3lm/PcNc2sYru0
+K2vkMSCGUlRUEDxYJcIxR4GYgQsPrBAoe/xx8sCnfSeTt3ngWAec4SeTEMl7BfLNwrLr5MFAFL5g
+a5N302GoW4e0IMGKTzFmoIL0lojg6i8L/hVbfOy+vTmQ05/s69oBRo+A6XilzD9ow4fzzX8m9J/m
+BeHweFeogikk8gGJNvtB7vH/wd808YT8T484E+xtMaD+b49EdZX5ACyT1i0kZ+1NL98VHnWVMplS
+YxOqQV5Ef4k6fM8hFm5MtiLNqCn0gdYubwMSpencT/T1wmxD/QIDAQABoxAwDjAMBgNVHRMBAf8E
+AjAAMA0GCSqGSIb3DQEBCwUAA4IBAQAqxy1PJv7fATdfJztEOfr7fEHy4iqbguLNaZKPWWqQDujm
+QYWNV9vyIGM2Qpo4A2AQ6L7HesB1vRo4QsxUS5gWDInGZ/Ns3kbZ8BSBaXPoAOKApZUiVqZRRPwI
+UwEKCt60GZeUh6J4H9mFbgvr8RtHv8APGNROwWRcQBzW1J0lBu90l2hhbe6S6Q44jBSjISc0oHpH
+8ot+Wa3rosL2uOQgZL8midLAqPPjtsh7DmKMNR3Vba5Pk/MSQgCqFANBBlSHnt6kkrPIwkE6haTq
+nknL87Zos2KcLGIW9qHrg4YBa+en35NkCq7nVi4rlzpAY2sDBHtQT2pjtpn0iGh3Z5/0</ds:X509Certificate>
+            </ds:X509Data>
+        </ds:KeyInfo>
+    </ds:Signature>
+    <md:SPSSODescriptor AuthnRequestsSigned="true" WantAssertionsSigned="true" protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
+        <md:KeyDescriptor use="signing">
+            <ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+                <ds:X509Data>
+                    <ds:X509Certificate>MIIDFDCCAfygAwIBAgIGElXjqKNAMA0GCSqGSIb3DQEBCwUAMEExPzA9BgNVBAMMNmh0dHBzOi8v
+czRzeW1kZXYuYXV0aGVudGljYXRpb24uZXUyMC5oYW5hLm9uZGVtYW5kLmNvbTAgFw0xNjAxMDEw
+MDAwMDBaGA8yMDUwMDEwMTAwMDAwMFowQTE/MD0GA1UEAww2aHR0cHM6Ly9zNHN5bWRldi5hdXRo
+ZW50aWNhdGlvbi5ldTIwLmhhbmEub25kZW1hbmQuY29tMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8A
+MIIBCgKCAQEAhzOzkFhXEfWhOyf7YNBDioaRaRrRyMy29MB4zIHtkUuZwiGR1d3lm/PcNc2sYru0
+K2vkMSCGUlRUEDxYJcIxR4GYgQsPrBAoe/xx8sCnfSeTt3ngWAec4SeTEMl7BfLNwrLr5MFAFL5g
+a5N302GoW4e0IMGKTzFmoIL0lojg6i8L/hVbfOy+vTmQ05/s69oBRo+A6XilzD9ow4fzzX8m9J/m
+BeHweFeogikk8gGJNvtB7vH/wd808YT8T484E+xtMaD+b49EdZX5ACyT1i0kZ+1NL98VHnWVMplS
+YxOqQV5Ef4k6fM8hFm5MtiLNqCn0gdYubwMSpencT/T1wmxD/QIDAQABoxAwDjAMBgNVHRMBAf8E
+AjAAMA0GCSqGSIb3DQEBCwUAA4IBAQAqxy1PJv7fATdfJztEOfr7fEHy4iqbguLNaZKPWWqQDujm
+QYWNV9vyIGM2Qpo4A2AQ6L7HesB1vRo4QsxUS5gWDInGZ/Ns3kbZ8BSBaXPoAOKApZUiVqZRRPwI
+UwEKCt60GZeUh6J4H9mFbgvr8RtHv8APGNROwWRcQBzW1J0lBu90l2hhbe6S6Q44jBSjISc0oHpH
+8ot+Wa3rosL2uOQgZL8midLAqPPjtsh7DmKMNR3Vba5Pk/MSQgCqFANBBlSHnt6kkrPIwkE6haTq
+nknL87Zos2KcLGIW9qHrg4YBa+en35NkCq7nVi4rlzpAY2sDBHtQT2pjtpn0iGh3Z5/0</ds:X509Certificate>
+                </ds:X509Data>
+            </ds:KeyInfo>
+        </md:KeyDescriptor>
+        <md:KeyDescriptor use="encryption">
+            <ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+                <ds:X509Data>
+                    <ds:X509Certificate>MIIDFDCCAfygAwIBAgIGElXjqKNAMA0GCSqGSIb3DQEBCwUAMEExPzA9BgNVBAMMNmh0dHBzOi8v
+czRzeW1kZXYuYXV0aGVudGljYXRpb24uZXUyMC5oYW5hLm9uZGVtYW5kLmNvbTAgFw0xNjAxMDEw
+MDAwMDBaGA8yMDUwMDEwMTAwMDAwMFowQTE/MD0GA1UEAww2aHR0cHM6Ly9zNHN5bWRldi5hdXRo
+ZW50aWNhdGlvbi5ldTIwLmhhbmEub25kZW1hbmQuY29tMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8A
+MIIBCgKCAQEAhzOzkFhXEfWhOyf7YNBDioaRaRrRyMy29MB4zIHtkUuZwiGR1d3lm/PcNc2sYru0
+K2vkMSCGUlRUEDxYJcIxR4GYgQsPrBAoe/xx8sCnfSeTt3ngWAec4SeTEMl7BfLNwrLr5MFAFL5g
+a5N302GoW4e0IMGKTzFmoIL0lojg6i8L/hVbfOy+vTmQ05/s69oBRo+A6XilzD9ow4fzzX8m9J/m
+BeHweFeogikk8gGJNvtB7vH/wd808YT8T484E+xtMaD+b49EdZX5ACyT1i0kZ+1NL98VHnWVMplS
+YxOqQV5Ef4k6fM8hFm5MtiLNqCn0gdYubwMSpencT/T1wmxD/QIDAQABoxAwDjAMBgNVHRMBAf8E
+AjAAMA0GCSqGSIb3DQEBCwUAA4IBAQAqxy1PJv7fATdfJztEOfr7fEHy4iqbguLNaZKPWWqQDujm
+QYWNV9vyIGM2Qpo4A2AQ6L7HesB1vRo4QsxUS5gWDInGZ/Ns3kbZ8BSBaXPoAOKApZUiVqZRRPwI
+UwEKCt60GZeUh6J4H9mFbgvr8RtHv8APGNROwWRcQBzW1J0lBu90l2hhbe6S6Q44jBSjISc0oHpH
+8ot+Wa3rosL2uOQgZL8midLAqPPjtsh7DmKMNR3Vba5Pk/MSQgCqFANBBlSHnt6kkrPIwkE6haTq
+nknL87Zos2KcLGIW9qHrg4YBa+en35NkCq7nVi4rlzpAY2sDBHtQT2pjtpn0iGh3Z5/0</ds:X509Certificate>
+                </ds:X509Data>
+            </ds:KeyInfo>
+        </md:KeyDescriptor>
+        <md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://s4symdev.authentication.eu20.hana.ondemand.com/saml/SingleLogout/alias/s4symdev.azure-live-eu20" />
+        <md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://s4symdev.authentication.eu20.hana.ondemand.com/saml/SingleLogout/alias/s4symdev.azure-live-eu20" />
+        <md:NameIDFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress</md:NameIDFormat>
+        <md:NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:transient</md:NameIDFormat>
+        <md:NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:persistent</md:NameIDFormat>
+        <md:NameIDFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified</md:NameIDFormat>
+        <md:NameIDFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</md:NameIDFormat>
+        <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://s4symdev.authentication.eu20.hana.ondemand.com/saml/SSO/alias/s4symdev.azure-live-eu20" index="0" isDefault="true" />
+        <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:URI" Location="https://s4symdev.authentication.eu20.hana.ondemand.com/oauth/token/alias/s4symdev.azure-live-eu20" index="1" />
+    </md:SPSSODescriptor>
+</md:EntityDescriptor>
